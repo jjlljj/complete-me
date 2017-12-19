@@ -30,37 +30,17 @@ class Trie {
     let currentNode = this.root;
     let partial = string
 
+    let completions = []
+
     while(partial.length >= 1) {
       let letter = partial.slice(0,1)
       partial = partial.slice(1, partial.length)
       currentNode = currentNode.next[letter]
     }
 
-    traverseNodes(currentNode)
-
-    function traverseNodes(currentNode) {
-      let completions = []
-      let nodeKeys = Object.keys(currentNode.next)
-      nodeKeys.forEach(key => {
-      completions.push(string + returnCompletions(currentNode.next[key]))
-      })
-
-      console.log(completions)
-    
-    return [completions, ...traverseNodes()]
-    }
-    
-    function returnCompletions(node) {
-      let nodeKeys = Object.keys(node.next)
-      if (node.isWord) {
-        return node.data
-      }
-
-      return node.data + returnCompletions(node.next[nodeKeys[0]])
-    }
+    return currentNode.getAllChildren(string)
 
   }
-
 
 }
 
