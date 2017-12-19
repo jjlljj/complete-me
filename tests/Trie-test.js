@@ -9,6 +9,16 @@ describe('Trie', ()=> {
     expect(true).to.be.true
   })
 
+  it('should have a counter which is set to 0 by default', ()=> {
+    let completeMe = new Trie()
+    expect(completeMe.counter).to.equal(0)
+  })
+
+  it('should contain a root which is a node', ()=> {
+    let completeMe = new Trie()
+    expect(completeMe.root).to.be.instanceof(Node)
+  })
+
   describe('Insert', ()=> {
     it('should have an insert method', ()=> {
       let completeMe = new Trie()
@@ -19,7 +29,7 @@ describe('Trie', ()=> {
 
     it('should return null if a string is not passed in', ()=> {
       let completeMe = new Trie()
-      expect(completeMe.insert()).to.equal(null)
+      expect(completeMe.insert()).to.be.null
     })
 
     it('should insert letters of a string as subsequent nodes in the trie', ()=> {
@@ -71,13 +81,18 @@ describe('Trie', ()=> {
 
     it('should return the number of words inserted into trie', ()=> {
       let completeMe = new Trie()
+
       expect(completeMe.count).to.equal(0)
+
       completeMe.insert("hello")
       completeMe.insert("tree")
+
       expect(completeMe.count).to.equal(2)
+
       completeMe.insert("woof")
       completeMe.insert("dog")
       completeMe.insert("hoth")
+
       expect(completeMe.count).to.equal(5)
     })
   })
@@ -85,39 +100,51 @@ describe('Trie', ()=> {
   describe('Suggest', ()=> {
     it('should return null if no string is entered', ()=> {
       let completeMe = new Trie()
+
+      expect(completeMe.suggest()).to.equal(null)
     })
+
+    it('should return a completion for a string based on an inserted word', ()=> {
+      let completeMe = new Trie()
+      completeMe.insert('pizza')
+      expect(completeMe.suggest('piz')).to.deep.equal(['pizza'])
+    })
+
+    it('should return an array of multiple possible completions', ()=> {
+      let completeMe = new Trie()
+      completeMe.insert('pizza')
+      completeMe.insert('pinocchio')
+      completeMe.insert('pizzaz')
+      completeMe.insert('pittance')
+
+      expect(completeMe.suggest('pi')).to.deep.equal(['pizza', 'pizzaz', 'pinocchio', 'pittance'])
+    })
+
+    it('should be able to discern completions from irrelevant strings', ()=> {
+      let completeMe = new Trie()
+      completeMe.insert('pizza')
+      completeMe.insert('pinocchio')
+      completeMe.insert('pizzaz')
+      completeMe.insert('pittance')
+      completeMe.insert('hoth')
+      completeMe.insert('hatchet')
+      completeMe.insert('helmet')
+      completeMe.insert('hat')
+      completeMe.insert('dog')
+
+      expect(completeMe.suggest()).to.be.null
+      expect(completeMe.suggest('pizz')).to.deep.equal(['pizza', 'pizzaz'])
+      expect(completeMe.suggest('h')).to.deep.equal(['hoth', 'hat', 'hatchet', 'helmet'])
+      expect(completeMe.suggest('hat')).to.deep.equal(['hat', 'hatchet'])
+      expect(completeMe.suggest('hel')).to.deep.equal(['helmet'])
+      expect(completeMe.suggest('d')).to.deep.equal(['dog'])
+    })
+
   })
 
 
 
 })
-
-
-
-//phase1
-// var completion = new Trie()
-
-// completion.insert("pizza")
-
-// completion.count()
-// => 1
-
-// completion.insert('apple')
-
-// completion.count()
-// => 2
-
-//phase2
-// completion.suggest("piz")
-// => ["pizza"]
-
-// completion.insert("pizzeria")
-
-// completion.suggest("piz")
-// => ["pizza", "pizzeria"]
-
-// completion.suggest('a')
-// => ["apple"]
 
 //phase3
 // import dictionary
