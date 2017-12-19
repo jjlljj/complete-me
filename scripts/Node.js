@@ -10,10 +10,6 @@ class Node {
     let nextKeys = Object.keys(this.next)
 
     if(!this) return []
-      
-    if(!string) {
-      string = ""
-    }
 
     if(this.isWord) {
       container.push(string)
@@ -23,7 +19,7 @@ class Node {
       let child = this.next[key]
       container = [ ...container, ...child.getAllChildren(string + key)]
     });
-    
+
     return container
   }
 

@@ -32,6 +32,8 @@ class Trie {
 
     let completions = []
 
+    if(!string) return null
+
     while(partial.length >= 1) {
       let letter = partial.slice(0,1)
       partial = partial.slice(1, partial.length)
