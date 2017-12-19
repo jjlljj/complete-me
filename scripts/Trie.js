@@ -37,6 +37,7 @@ class Trie {
     while(partial.length >= 1) {
       let letter = partial.slice(0,1)
       partial = partial.slice(1, partial.length)
+      if(!currentNode.next[letter]) return null
       currentNode = currentNode.next[letter]
     }
 

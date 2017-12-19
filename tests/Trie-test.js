@@ -16,7 +16,7 @@ describe.only('Trie', ()=> {
     completeMe.insert("hill")
     completeMe.insert("hoth")
     
-    console.log(completeMe.suggest())
+    console.log(completeMe.suggest(''))
 
   })
 
