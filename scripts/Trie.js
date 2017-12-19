@@ -3,12 +3,16 @@ const Node = require('./Node.js')
 class Trie {
   constructor() {
     this.root = new Node();
-    this.count = 0;
+    this.counter = 0;
+  }
+
+  get count() {
+    return this.counter
   }
 
   insert(string) {
+    if (!string) return null
     let currentNode = this.root
-
     while(string.length >= 1) {
       let letter = string.slice(0,1)
       string = string.slice(1, string.length)
@@ -18,31 +22,20 @@ class Trie {
       currentNode = currentNode.next[letter]
     }
     currentNode.isWord = true
-    this.count ++
-  }
-
-  count() {
-    //should return total library count
-    return this.count
+    this.counter ++
   }
 
   suggest(string) {
+    if(!string) return null
     let currentNode = this.root;
     let partial = string
 
-    let completions = []
-
-    if(!string) return null
-
-    while(partial.length >= 1) {
-      let letter = partial.slice(0,1)
+    while(partial.length > 0) {
+      currentNode = currentNode.next[partial[0]]
       partial = partial.slice(1, partial.length)
-      if(!currentNode.next[letter]) return null
-      currentNode = currentNode.next[letter]
     }
 
     return currentNode.getAllChildren(string)
-
   }
 
 }
