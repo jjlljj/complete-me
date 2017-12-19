@@ -12,9 +12,12 @@ describe.only('Trie', ()=> {
   it('should have a method named insert', ()=> {
     let completeMe = new Trie()
     completeMe.insert("pizza")
+    completeMe.insert("pizzfaz")
+    completeMe.insert("pizca")
+    completeMe.insert("pizfa")
     // console.log(completeMe.head)
 
-    expect(completeMe.suggest('piz')).to.equal(['pizza'])
+    expect(completeMe.suggest('piz')).to.deep.equal(['pizza'])
 
   })
 

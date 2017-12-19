@@ -27,9 +27,8 @@ class Trie {
   }
 
   suggest(string) {
-    let currentNode = this.head;
+    let currentNode = this.root;
     let partial = string
-    let completions = []
 
     while(partial.length >= 1) {
       let letter = partial.slice(0,1)
@@ -37,9 +36,19 @@ class Trie {
       currentNode = currentNode.next[letter]
     }
 
-    string = string.slice(0, string.length-1)
+    traverseNodes(currentNode)
+
+    function traverseNodes(currentNode) {
+      let completions = []
+      let nodeKeys = Object.keys(currentNode.next)
+      nodeKeys.forEach(key => {
+      completions.push(string + returnCompletions(currentNode.next[key]))
+      })
+
+      console.log(completions)
     
-    return string + returnCompletions(currentNode)
+    return [completions, ...traverseNodes()]
+    }
     
     function returnCompletions(node) {
       let nodeKeys = Object.keys(node.next)
