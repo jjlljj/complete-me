@@ -17,7 +17,7 @@ describe('Node', ()=> {
     expect(node.data).to.equal('f')
   })
 
-  it('should be able to be linked to other nodes', ()=> {
+  it('should be able to link to other nodes', ()=> {
     let node = new Node('f')
     node.next.g = new Node('g')
 
@@ -51,7 +51,7 @@ describe('Node', ()=> {
       expect(node.getAllChildren('')).to.deep.equal(['g', 'h'])
     })
 
-    it('should concatinate nodes by tree path with the argument', ()=> {
+    it('should concatinate nodes by trie path with the argument', ()=> {
       let node = new Node('c')
       node.next.b = new Node('b')
       node.next.b.next.a = new Node('a')

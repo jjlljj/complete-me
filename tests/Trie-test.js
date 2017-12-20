@@ -9,12 +9,12 @@ describe('Trie', ()=> {
     expect(true).to.be.true
   })
 
-  it('should have a counter which is set to 0 by default', ()=> {
+  it('should have a counter which is 0 by default', ()=> {
     let completeMe = new Trie()
     expect(completeMe.counter).to.equal(0)
   })
 
-  it('should contain a root which is a node', ()=> {
+  it('should have a root which is a node', ()=> {
     let completeMe = new Trie()
     expect(completeMe.root).to.be.instanceof(Node)
   })
