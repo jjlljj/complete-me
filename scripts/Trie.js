@@ -21,8 +21,8 @@ class Trie {
       }
       currentNode = currentNode.next[letter]
     }
-    currentNode.isWord = true
-    this.counter ++
+    if (!currentNode.isWord) { currentNode.isWord = true
+    this.counter ++ }
   }
 
   populate(array) {
@@ -42,17 +42,49 @@ class Trie {
       partial = partial.slice(1, partial.length)
     }
 
-    return currentNode.getAllChildren(string)
+    return this.selectHelper(currentNode.getAllChildren(string))
+
+
+  }
+
+  selectHelper(array){
+    let sorted = array.sort((a, b) => {
+      return b.selectCount - a.selectCount
+    })
+    return sorted.map(item => {
+      return item.string
+    })
   }
 
   select(string) {
-    // should set a given string as preferred and return it first in the array
+    let currentNode = this.root;
+    let partial = string
+
+    while(partial.length > 0) {
+      currentNode = currentNode.next[partial[0]]
+      partial = partial.slice(1, partial.length)
+    }
+    currentNode.selectCount++
   }
 
   delete(string) {
-    // should find a word in the tree && set this.isWord to false
+    // remove isWord flag --> should find word in the tree && set this.isWord to false
     // if its last characters are solo nodes(no children), it should delete those solo nodes
     // if nextKeys.length === 0 set parent next[letter] = null ???
+    // iterate down to end, then back up to last word node???
+
+    if (!string) return null
+    let currentNode = this.root;
+    let partial = string
+
+    while(partial.length > 0 ) {
+      currentNode = currentNode.next[partial[0]]
+      partial = partial.slice(1, partial.length)
+    }
+
+    this.counter --
+    currentNode.isWord = false;
+    return string
   }
 
 }

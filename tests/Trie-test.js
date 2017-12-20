@@ -144,7 +144,7 @@ describe('Trie', ()=> {
       expect(completeMe.suggest('d')).to.deep.equal(['dog'])
     })
 
-    it.only('should be able to suggst completions from the dictionary', ()=> {
+    it('should be able to suggst completions from the dictionary', ()=> {
       let completeMe = new Trie()
       completeMe.populate(dictionary)
       expect(completeMe.suggest('piz')).to.deep.equal([ 'pize', 'pizza', 'pizzeria', 'pizzicato', 'pizzle' ])
@@ -170,9 +170,25 @@ describe('Trie', ()=> {
 
   })
 
-  describe('Select', ()=> {
+  describe.only('Select', ()=> {
 
-    it.skip('should select a preferred completion to return first', ()=> {
+    it('should select a preferred completion to return first', ()=> {
+      let completeMe = new Trie()
+      completeMe.insert('pizza')
+      completeMe.insert('pinocchio')
+      completeMe.insert('pizzaz')
+      completeMe.insert('pittance')
+      completeMe.insert('hoth')
+      completeMe.insert('hatchet')
+      completeMe.insert('helmet')
+      completeMe.insert('hat')
+      completeMe.insert('dog')
+
+      completeMe.select('helmet')
+      completeMe.select('pittance')
+
+      expect(completeMe.suggest('p')).to.deep.equal(['pittance', 'pizza', 'pizzaz', 'pinocchio'])
+      expect(completeMe.suggest('h')).to.deep.equal(['helmet', 'hoth', 'hat', 'hatchet'])
 
     })
 
@@ -180,16 +196,41 @@ describe('Trie', ()=> {
 
   describe('Delete', ()=> {
 
-    it.skip('should find a given string in the trie', ()=> {
+    it('should find a given string in the trie', ()=> {
+      let completeMe = new Trie()
+      completeMe.insert("try")
+      completeMe.insert("tree")
+
+      expect(completeMe.delete("tree")).to.equal("tree")
 
     })
 
-    it.skip('should remove the given string as a word', ()=> {
+    it('should remove the given string as a word', ()=> {
+      let completeMe = new Trie()
+      completeMe.insert("try")
+      completeMe.insert("tree")
 
+      expect(completeMe.count).to.equal(2)
+
+      completeMe.delete("tree")
+
+      expect(completeMe.count).to.equal(1)
+      expect(completeMe.suggest('tr')).to.deep.equal(['try'])
     })
 
-    it.skip('should delete any solo nodes of the string remaining in the trie', ()=> {
-      
+    it('should delete any solo nodes of the string remaining in the trie...', ()=> {
+
+      let completeMe = new Trie()
+      completeMe.insert("try")
+      completeMe.insert("tree")
+
+      expect(completeMe.count).to.equal(2)
+
+      completeMe.delete("tree")
+
+      expect(completeMe.count).to.equal(1)
+      // expect(completeMe.root.next.t.next.r.next.e).to.deep.equal(null)
+
     })
 
   })
