@@ -1,6 +1,10 @@
 const { expect } = require('chai')
 const Trie = require('../scripts/Trie.js')
 const Node = require('../scripts/Node.js')
+const fs = require('fs');
+const text = "/usr/share/dict/words"
+const dictionary = fs.readFileSync(text).toString().trim().split('\n')
+
 
 
 describe('Trie', ()=> {
@@ -140,24 +144,54 @@ describe('Trie', ()=> {
       expect(completeMe.suggest('d')).to.deep.equal(['dog'])
     })
 
+    it.only('should be able to suggst completions from the dictionary', ()=> {
+      let completeMe = new Trie()
+      completeMe.populate(dictionary)
+      expect(completeMe.suggest('piz')).to.deep.equal([ 'pize', 'pizza', 'pizzeria', 'pizzicato', 'pizzle' ])
+      expect(completeMe.suggest('zamb')).to.deep.equal([ 'zambo', 'zamboorak' ])
+    })
+
   })
 
+  describe('Populate', ()=> {
 
+    it('should be able to insert an array of words into the trie', ()=> {
+      let completeMe = new Trie()
+      let array = ['woof', 'dog', 'hoth']
+      completeMe.populate(array)
+      expect(completeMe.count).to.equal(3)
+    })
+
+    it('should be able to insert words from the dictionary into the trie', ()=> {
+      let completeMe = new Trie()
+      completeMe.populate(dictionary)
+      expect(completeMe.count).to.equal(235886)
+    })
+
+  })
+
+  describe('Select', ()=> {
+
+    it.skip('should select a preferred completion to return first', ()=> {
+
+    })
+
+  })
+
+  describe('Delete', ()=> {
+
+    it.skip('should find a given string in the trie', ()=> {
+
+    })
+
+    it.skip('should remove the given string as a word', ()=> {
+
+    })
+
+    it.skip('should delete any solo nodes of the string remaining in the trie', ()=> {
+      
+    })
+
+  })
 
 })
-
-//phase3
-// import dictionary
-// const text = "/usr/share/dict/words"
-// const dictionary = fs.readFileSync(text).toString().trim().split('\n')
-
-// const completion = new Trie()
-
-// completion.populate(dictionary)
-
-// completion.count()
-// => 235886
-
-// completion.suggest("piz")
-// => ["pize", "pizza", "pizzeria", "pizzicato", "pizzle"]
-

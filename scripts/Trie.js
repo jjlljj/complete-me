@@ -25,6 +25,13 @@ class Trie {
     this.counter ++
   }
 
+  populate(array) {
+    if (!array) return null
+    array.forEach(word => {
+      this.insert(word)
+    })
+  }
+
   suggest(string) {
     if(!string) return null
     let currentNode = this.root;
@@ -36,6 +43,16 @@ class Trie {
     }
 
     return currentNode.getAllChildren(string)
+  }
+
+  select(string) {
+    // should set a given string as preferred and return it first in the array
+  }
+
+  delete(string) {
+    // should find a word in the tree && set this.isWord to false
+    // if its last characters are solo nodes(no children), it should delete those solo nodes
+    // if nextKeys.length === 0 set parent next[letter] = null ???
   }
 
 }
