@@ -51,9 +51,7 @@ class Trie {
     let sorted = array.sort((a, b) => {
       return b.selectCount - a.selectCount
     })
-    return sorted.map(item => {
-      return item.string
-    })
+    return sorted.map(item => item.string)
   }
 
   select(string) {
@@ -68,10 +66,8 @@ class Trie {
   }
 
   delete(string) {
-    // remove isWord flag --> should find word in the tree && set this.isWord to false
     // if its last characters are solo nodes(no children), it should delete those solo nodes
-    // if nextKeys.length === 0 set parent next[letter] = null ???
-    // iterate down to end, then back up to last word node???
+    // iterate down to end, then back up to branch node, delete tree from there???
 
     if (!string) return null
     let currentNode = this.root;
@@ -82,9 +78,11 @@ class Trie {
       partial = partial.slice(1, partial.length)
     }
 
-    this.counter --
-    currentNode.isWord = false;
-    return string
+    if (currentNode.isWord){
+      currentNode.isWord = false;
+      this.counter --
+      return string
+    }
   }
 
 }

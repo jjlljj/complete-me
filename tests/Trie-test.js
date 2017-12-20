@@ -151,6 +151,31 @@ describe('Trie', ()=> {
       expect(completeMe.suggest('zamb')).to.deep.equal([ 'zambo', 'zamboorak' ])
     })
 
+    it('should return selected completions first', ()=> {
+      let completeMe = new Trie()
+      completeMe.insert('pizza')
+      completeMe.insert('pinocchio')
+      completeMe.insert('pizzaz')
+      completeMe.insert('pittance')
+      completeMe.insert('hoth')
+      completeMe.insert('hatchet')
+      completeMe.insert('helmet')
+      completeMe.insert('hat')
+      completeMe.insert('dog')
+
+      expect(completeMe.suggest('p')).to.deep.equal(['pizza', 'pizzaz', 'pinocchio', 'pittance'])
+      expect(completeMe.suggest('h')).to.deep.equal(['hoth', 'hat', 'hatchet', 'helmet'])
+
+      completeMe.select('helmet')
+      completeMe.select('pittance')
+
+      expect(completeMe.suggest('p')).to.deep.equal(['pittance', 'pizza', 'pizzaz', 'pinocchio'])
+      expect(completeMe.suggest('h')).to.deep.equal(['helmet', 'hoth', 'hat', 'hatchet'])
+
+      completeMe.select('hatchet')
+      expect(completeMe.suggest('h')).to.deep.equal(['hatchet', 'helmet', 'hoth', 'hat'])
+    })
+
   })
 
   describe('Populate', ()=> {
@@ -170,9 +195,16 @@ describe('Trie', ()=> {
 
   })
 
-  describe.only('Select', ()=> {
+  describe('Select', ()=> {
 
-    it('should select a preferred completion to return first', ()=> {
+    it('should select a string', ()=> {
+      let completeMe = new Trie()
+      completeMe.insert('hat')
+      completeMe.select('hat')
+      expect(completeMe.root.next.h.next.a.next.t.selectCount).to.equal(1)
+    })
+
+    it('should return selected completions first', ()=> {
       let completeMe = new Trie()
       completeMe.insert('pizza')
       completeMe.insert('pinocchio')
@@ -184,12 +216,17 @@ describe('Trie', ()=> {
       completeMe.insert('hat')
       completeMe.insert('dog')
 
+      expect(completeMe.suggest('p')).to.deep.equal(['pizza', 'pizzaz', 'pinocchio', 'pittance'])
+      expect(completeMe.suggest('h')).to.deep.equal(['hoth', 'hat', 'hatchet', 'helmet'])
+
       completeMe.select('helmet')
       completeMe.select('pittance')
 
       expect(completeMe.suggest('p')).to.deep.equal(['pittance', 'pizza', 'pizzaz', 'pinocchio'])
       expect(completeMe.suggest('h')).to.deep.equal(['helmet', 'hoth', 'hat', 'hatchet'])
 
+      completeMe.select('hatchet')
+      expect(completeMe.suggest('h')).to.deep.equal(['hatchet', 'helmet', 'hoth', 'hat'])
     })
 
   })

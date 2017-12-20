@@ -9,7 +9,6 @@ class Node {
   getAllChildren(string) {
     if(!this) return []
 
-
     let container = []
     let nextKeys = Object.keys(this.next)
 

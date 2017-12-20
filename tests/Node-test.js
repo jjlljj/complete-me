@@ -38,7 +38,7 @@ describe('Node', ()=> {
       expect(node.getAllChildren('')).to.deep.equal([])
       node.next.g.isWord = true
 
-      expect(node.getAllChildren('')).to.deep.equal(['g'])
+      expect(node.getAllChildren('')).to.deep.equal([{string: 'g', selectCount: 0}])
     })
 
     it('should return multiple child words of the node', ()=> {
@@ -48,7 +48,7 @@ describe('Node', ()=> {
       node.next.h = new Node('h')
       node.next.h.isWord = true
 
-      expect(node.getAllChildren('')).to.deep.equal(['g', 'h'])
+      expect(node.getAllChildren('')).to.deep.equal([{string: 'g', selectCount: 0}, {string: 'h', selectCount: 0}])
     })
 
     it('should concatinate nodes by trie path with the argument', ()=> {
@@ -60,7 +60,7 @@ describe('Node', ()=> {
       node.next.b.next.a.next.g = new Node('g')
       node.next.b.next.a.next.g.isWord = true
 
-      expect(node.getAllChildren('a')).to.deep.equal(['abad', 'abag'])
+      expect(node.getAllChildren('a')).to.deep.equal([{string: 'abad', selectCount: 0}, {string: 'abag', selectCount: 0}])
 
     })
   })
