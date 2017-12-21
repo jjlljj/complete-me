@@ -255,21 +255,6 @@ describe('Trie', ()=> {
       expect(completeMe.suggest('tr')).to.deep.equal(['try'])
     })
 
-    it('should delete any solo nodes of the string remaining in the trie...', ()=> {
-
-      let completeMe = new Trie()
-      completeMe.insert("try")
-      completeMe.insert("tree")
-
-      expect(completeMe.count).to.equal(2)
-
-      completeMe.delete("tree")
-
-      expect(completeMe.count).to.equal(1)
-      // expect(completeMe.root.next.t.next.r.next.e).to.deep.equal(null)
-
-    })
-
   })
 
 })

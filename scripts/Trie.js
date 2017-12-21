@@ -44,7 +44,6 @@ class Trie {
 
     return this.selectHelper(currentNode.getAllChildren(string))
 
-
   }
 
   selectHelper(array){
@@ -57,7 +56,6 @@ class Trie {
   select(string) {
     let currentNode = this.root;
     let partial = string
-
     while(partial.length > 0) {
       currentNode = currentNode.next[partial[0]]
       partial = partial.slice(1, partial.length)
@@ -66,9 +64,6 @@ class Trie {
   }
 
   delete(string) {
-    // if its last characters are solo nodes(no children), it should delete those solo nodes
-    // iterate down to end, then back up to branch node, delete tree from there???
-
     if (!string) return null
     let currentNode = this.root;
     let partial = string
