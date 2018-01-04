@@ -41,8 +41,10 @@ class Trie {
       currentNode = currentNode.next[partial[0]]
       partial = partial.slice(1, partial.length)
     }
-
-    return this.selectHelper(currentNode.getAllChildren(string))
+    if (currentNode) {
+      return this.selectHelper(currentNode.getAllChildren(string))
+    }
+    return null
 
   }
 
