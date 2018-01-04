@@ -37,7 +37,7 @@ class Trie {
     let currentNode = this.root;
     let partial = string
 
-    while(partial.length > 0) {
+    while(partial.length > 0 && currentNode) {
       currentNode = currentNode.next[partial[0]]
       partial = partial.slice(1, partial.length)
     }
