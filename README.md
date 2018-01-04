@@ -1,0 +1,1 @@
+A Javascript search trie
