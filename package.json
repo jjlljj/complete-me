@@ -1,6 +1,6 @@
 {
   "name": "@jjlljj/complete-me",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A Javascript search trie",
   "main": "index.js",
   "directories": {
