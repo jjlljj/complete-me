@@ -28,7 +28,7 @@ class Trie {
   populate(array) {
     if (!array) return null
     array.forEach(word => {
-      this.insert(word)
+      this.insert(word.toLowerCase())
     })
   }
 
